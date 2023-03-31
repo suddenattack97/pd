@@ -1,27 +1,35 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, Response
 import sqlite3
+import json
+import time
 
 app = Flask(__name__)
 
-# SQLite3 데이터베이스 파일 경로
 DATABASE = 'danggn.db'
 
 @app.route('/')
 def index():
-    # 데이터베이스 연결
-    conn = sqlite3.connect(DATABASE)
-    cur = conn.cursor()
+    return render_template('index.html')
 
-    # 아이템 목록 가져오기
-    cur.execute('SELECT * FROM item_view order by reg_date desc limit 35')
-    items = cur.fetchall()
+@app.route('/stream')
+def stream():
+    def event_stream():
+        while True:
+            conn = sqlite3.connect(DATABASE)
+            cur = conn.cursor()
 
-    # 데이터베이스 연결 종료
-    cur.close()
-    conn.close()
+            cur.execute('SELECT * FROM item_view order by reg_date desc limit 35')
+            items = cur.fetchall()
 
-    # 템플릿 파일 렌더링
-    return render_template('index.html', items=items)
+            cur.close()
+            conn.close()
+
+            data = json.dumps({'items': items})
+            yield f"data: {data}\n\n"
+
+            time.sleep(3)
+
+    return Response(event_stream(), content_type='text/event-stream')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=6700)
