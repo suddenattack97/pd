@@ -19,7 +19,7 @@ def stream():
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
 
-            cur.execute('SELECT * FROM item_view order by reg_date desc limit 35')
+            cur.execute('SELECT * FROM item_view order by reg_date desc limit 15')
             items = cur.fetchall()
 
             cur.close()
