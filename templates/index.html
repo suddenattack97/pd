@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Danggn</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="title">Danggn</div>
+        <div class="item-container" id="item-container">
+        </div>
+    </div>
+
+
+<!-- index.html -->
+<script>
+    //const source = new EventSource('/stream');
+    const source = new EventSource('/stream');
+    let previousData = '';
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hour = String(date.getHours()).padStart(2, '0');
+        const minute = String(date.getMinutes()).padStart(2, '0');
+        const second = String(date.getSeconds()).padStart(2, '0');
+
+        return `${year}년${month}월${day}일\n${hour}시${minute}분${second}초`;
+    }
+    async function markAsRead(item_id) {
+        const response = await fetch(`/mark_as_read/${item_id}`, { method: 'POST' });
+        if (response.status === 204) {
+            const itemElement = document.getElementById(`item-${item_id}`);
+            itemElement.classList.add('item-read');
+        }
+    }
+    source.onmessage = (event) => {
+        if (previousData !== event.data) {
+            previousData = event.data;
+            const data = JSON.parse(event.data);
+            const items = data.items;
+            const itemsDiv = document.getElementById('item-container');
+            
+            itemsDiv.innerHTML = '';
+
+            items.forEach(item => {
+                const itemId = `item-${item[0]}`;
+                const readClass = item[7] === 1 ? 'item-read' : '';
+                
+                if (!document.getElementById(itemId)) {
+                    const newItem = `
+                        <div class="item ${readClass}" onclick="markAsRead(${item[0]})">
+                            <div class="item-image">
+                                <a href="https://www.daangn.com/articles/${item[0]}"  target="_blank">
+                                    <img src="${item[5]}" alt="">
+                                </a>
+                            </div>
+                        <div class="item-info">
+                            <div class="item-title">${item[3]}</div>
+                            <div class="item-price">${item[4]}</div>
+                            <div class="item-date">${formatDate(item[6])}</div>
+                        </div>
+                    </div>
+                    `;
+                    itemsDiv.innerHTML += newItem;
+                }
+            });
+        }
+    };
+</script>
+</body>
+</html>
