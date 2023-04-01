@@ -183,11 +183,12 @@ color: gray;
 
   .item {
       flex: 0 0 calc(18% - 10px);
-      margin-bottom: 10px;
-      width: 73px;
+      margin-bottom: 25px;
+      width: 90px;
   }
   .item-image{
     height:55px;
+    width: 90px;
   }
   .item-info{
     padding-top:20px;
@@ -200,5 +201,22 @@ color: gray;
   }
   .item-date{
     font-size: 9px;
+  }
+  .item-status_name{
+    font-size: 9px;
+  }
+  .item-chat_rooms_count{
+    font-size: 9px;
+    /* width : 55px;
+    height : 15px;
+    left: 0px;
+    top : 180px; */
+  }
+  .item-watches_count{
+    font-size: 9px;
+    width : 60px;
+    height : 13px;
+    left: 15px;
+    top : 55px;
   }
 }
