@@ -28,7 +28,7 @@ def stream():
             data = json.dumps({'items': items})
             yield f"data: {data}\n\n"
 
-            time.sleep(3)
+            time.sleep(5)
 
     return Response(event_stream(), content_type='text/event-stream')
     
