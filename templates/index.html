@@ -6,10 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script
+    src="https://code.jquery.com/jquery-3.6.4.js"
+    integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous">
+    </script>
 </head>
 <body>
     <div class="container">
-        <div class="title">Danggn</div>
+        <div class="title">
+            <img src="{{ url_for('static', filename='images/rabbit_left.png') }}">
+            <img src="{{ url_for('static', filename='images/favicon.png') }}">
+            <img src="{{ url_for('static', filename='images/rabbit_right.png') }}">
+        </div>
         <div class="item-container" id="item-container">
         </div>
     </div>
@@ -17,7 +26,6 @@
 
 <!-- index.html -->
 <script>
-    //const source = new EventSource('/stream');
     const source = new EventSource('/stream');
     let previousData = '';
 
@@ -39,6 +47,22 @@
             itemElement.classList.add('item-read');
         }
     }
+    async function getUpdatedData(itemId) {
+        const response = await fetch(`/updates/${itemId}`, { method: 'POST' });
+        const resJson = await response.json();
+
+        const statusColors = {
+            "나눔중": "rgba(144, 238, 144,0.5)",
+            "예약중": "rgba(135, 206, 235,0.5)",
+            "나눔완료": "rgba(211, 211, 211,0.5)"
+        };
+
+        $("#item-"+itemId+" .item-status_name").text(resJson.article.status_name);
+        $("#item-"+itemId+" .item-status_name").css("background-color", statusColors[resJson.article.status_name]);
+        $("#item-"+itemId+" .item-chat_rooms_count").text("채팅수 : "+resJson.article.chat_rooms_count);
+        $("#item-"+itemId+" .item-watches_count").text("조회수 : "+ resJson.article.reads_count);
+    }
+
     source.onmessage = (event) => {
         if (previousData !== event.data) {
             previousData = event.data;
@@ -54,23 +78,31 @@
                 
                 if (!document.getElementById(itemId)) {
                     const newItem = `
-                        <div class="item ${readClass}" onclick="markAsRead(${item[0]})">
+                        <div id="${itemId}" class="item ${readClass}" onclick="markAsRead(${item[0]})">
                             <div class="item-image">
                                 <a href="https://www.daangn.com/articles/${item[0]}"  target="_blank">
                                     <img src="${item[5]}" alt="">
                                 </a>
+                                <div id="${itemId}-status" class="item-status_name"></div>
+                                <div id="${itemId}-chat" class="item-chat_rooms_count"></div>
+                                <div id="${itemId}-watches" class="item-watches_count"></div>
                             </div>
-                        <div class="item-info">
-                            <div class="item-title">${item[3]}</div>
-                            <div class="item-price">${item[4]}</div>
-                            <div class="item-date">${formatDate(item[6])}</div>
+                            <div class="item-info">
+                                <div class="item-title">${item[3]}</div>
+                                <div class="item-date">${formatDate(item[6])}</div>
+                            </div>
                         </div>
-                    </div>
                     `;
                     itemsDiv.innerHTML += newItem;
+                    getUpdatedData(item[0]); // 이 줄을 추가합니다.
                 }
             });
         }
+        const data = JSON.parse(event.data);
+        const items = data.items;
+        items.forEach(item => {
+            getUpdatedData(item[0]);
+        });
     };
 </script>
 </body>
