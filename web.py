@@ -53,17 +53,17 @@ def updates(item_id):
     # 여기에서 필요한 처리를 수행합니다.
     response_url = "https://api.kr.karrotmarket.com/webapp/api/v24/articles/"+item_id+".json?feed_visible=1&include=is_watched_by_me"
     response_headers = {
-        'x-user-agent' : 'TowneersApp/23.5.1/230501 iOS/16.3.0/1953.3 iPhone15,2',
+        'x-user-agent' : 'TowneersApp/23.2.2/230202 iOS/16.2.0/1953.3 iPhone14,2',
         'accept' : '*/*',
         'x-country-code' : 'KR',
         'x-karrot-api-content-sha256' : '47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=',
-        'x-karrot-api-signature-v1' : '39e8308e12c9f83c8878ec3e83ec1876fd82937b6c63bee89cce6fba8056b636',
+        'x-karrot-api-signature-v1' : 'c8455d1f9261ec307a93e2e467c9234ba9ad6388285352c316638763b9f627f2',
         'accept-language' : 'ko-KR',
-        'x-karrot-api-timestamp' : '1678329469729',
+        'x-karrot-api-timestamp' : '1680497117015',
         'accept-encoding' : 'br;q=1.0, gzip;q=0.9, deflate;q=0.8',
-        'user-agent' : 'Karrot/23.5.1 (com.towneers.www; build:1; iOS 16.3.0) Alamofire/5.6.1',
-        'x-auth-token' : '943ce001830d26c08f8a6262393d38179bd8d5f3a93076ee24754096db15cf55',
-        'cookie' : '_hoian-webapp_session=KiZUuJQ1DyqBOnhPosQ0A3cBo1sduE9maOeYBJ835yHY7xLTZXVP49g4i%2FI0Ch%2FXlEzfMBQ2X2bP8E3IkQGeRhi5OG7w2CrF7C4dkGwi7aK88V6f1OuAvNgWOup3OkkC4LlD1Lnq%2FzKbD%2BsusSQHeJ7B4FFFLF%2BOhdyrbYB%2FREPN7N2uJLRNglfHCes%2FhE6wsTSE2MCMphLymKh%2Fnm0%2BM0dtwM5P--EPbjhcBvMrCSPVIf--f5gvBpLSI3zZy0kqxsCjWQ%3D%3D'
+        'user-agent' : 'Karrot/23.2.2 (com.towneers.www; build:0; iOS 16.2.0) Alamofire/5.6.1',
+        'X-Auth-Token' : '79771223201a41e4fbffde341db55f48',
+        'Cookie' : '_hoian-webapp_session=kYFv3tqPpqth0Pv%2FlWOaHLZK8QHgZhCkzHkazhOl2sbVng%2BGLjDP04G1Ug85ujNwx0YlHczC0i%2BryzC8S2pfUWkxj9t%2B7vEm%2F17HbNhqXxt6wgVQmNxu3u4c8LXS32l7WQ0ScYkdFc%2FeH3cnAuJE8g3UL5BNZPnOSSvau0cCccxsHyVzu0MTN5CEmLq0%2FQYMr2TV9Nh0VUiz%2BYh2ROlMOM7RQwHJ--%2BSohH2xPwOfCWUPq--iXId19Ku%2F8TIRv0s79p0hA%3D%3D'
         }
     response = requests.get(url=response_url, headers=response_headers)
     res_json = json.loads(response.text)
