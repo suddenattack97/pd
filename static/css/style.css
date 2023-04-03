@@ -95,6 +95,31 @@ max-width: 100%;
 object-fit: contain;
 }
 
+.item-image:hover .item-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.item-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  transition: opacity 0.3s;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
 .item-info {
 padding: 10px;
 text-align: left;

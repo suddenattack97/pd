@@ -19,7 +19,7 @@ def stream():
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
 
-            cur.execute('SELECT * FROM item_view order by reg_date desc limit 15')
+            cur.execute('SELECT * FROM item_view order by reg_date desc limit 21')
             items = cur.fetchall()
 
             cur.close()
@@ -46,10 +46,12 @@ def mark_as_read(item_id):
     return '', 204
 
 
+
+
 @app.route('/updates/<string:item_id>', methods=['POST'])
 def updates(item_id):
     # 여기에서 필요한 처리를 수행합니다.
-    response_url = "https://api.kr.karrotmarket.com/webapp/api/v24/articles/"+item_id+".json?feed_visible=1&include=user%2Cfirst_image%2Cimages%2Cis_watched_by_me%2Creviews%2Cis_chat_room_opened_by_me%2Cis_offered_by_me%2Cuser_articles%2Cadvertisement_status%2Cuser_flagged_by_me%2Cchat_user_ids%2Cis_republication_available%2Coffers_count%2Cofferable%2Cbuyer%2Ctrading_location"
+    response_url = "https://api.kr.karrotmarket.com/webapp/api/v24/articles/"+item_id+".json?feed_visible=1&include=is_watched_by_me"
     response_headers = {
         'x-user-agent' : 'TowneersApp/23.5.1/230501 iOS/16.3.0/1953.3 iPhone15,2',
         'accept' : '*/*',

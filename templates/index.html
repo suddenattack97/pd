@@ -62,9 +62,12 @@
             if(resJson.status.message == "게시글이 삭제되었거나 존재하지 않아요."){
                 $("#item-"+itemId+" .item-status_name").text("삭제");
             }
+        }else if(resJson.article.is_unpublished){
+            $("#item-"+itemId+" .item-status_name").text("숨김");
         }else{
             $("#item-"+itemId+" .item-status_name").text(resJson.article.status_name);
         }
+
         $("#item-"+itemId+" .item-status_name").css("background-color", statusColors[(resJson.status ? "삭제" : resJson.article.status_name)]);
         $("#item-"+itemId+" .item-chat_rooms_count").text("채팅수 : "+(resJson.status ? "X" : resJson.article.chat_rooms_count ));
         $("#item-"+itemId+" .item-watches_count").text("조회수 : "+ (resJson.status ? "X" : resJson.article.reads_count ));
@@ -81,22 +84,23 @@
 
             items.forEach(item => {
                 const itemId = `item-${item[0]}`;
-                const readClass = item[7] === 1 ? 'item-read' : '';
+                const readClass = item[8] === 1 ? 'item-read' : '';
                 
                 if (!document.getElementById(itemId)) {
                     const newItem = `
                         <div id="${itemId}" class="item ${readClass}" onclick="markAsRead(${item[0]})">
                             <div class="item-image">
                                 <a href="https://www.daangn.com/articles/${item[0]}"  target="_blank">
-                                    <img src="${item[5]}" alt="">
+                                    <img src="${item[6]}" title="${item[4]}">
                                 </a>
                                 <div id="${itemId}-status" class="item-status_name"></div>
                                 <div id="${itemId}-chat" class="item-chat_rooms_count"></div>
                                 <div id="${itemId}-watches" class="item-watches_count"></div>
+                                <div class="item-tooltip">${item[4]}</div>
                             </div>
                             <div class="item-info">
                                 <div class="item-title">${item[3]}</div>
-                                <div class="item-date">${formatDate(item[6])}</div>
+                                <div class="item-date">${formatDate(item[7])}</div>
                             </div>
                         </div>
                     `;
@@ -104,12 +108,13 @@
                     getUpdatedData(item[0]); // 이 줄을 추가합니다.
                 }
             });
+        }else{
+            const data = JSON.parse(event.data);
+            const items = data.items;
+            items.forEach(item => {
+                getUpdatedData(item[0]);
+            });
         }
-        const data = JSON.parse(event.data);
-        const items = data.items;
-        items.forEach(item => {
-            getUpdatedData(item[0]);
-        });
     };
 </script>
 </body>
