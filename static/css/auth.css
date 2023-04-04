@@ -28,6 +28,15 @@
     transform: rotate(360deg);
   }
 }
+/* 폼 회전 애니메이션 추가 */
+@keyframes counter-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
 
 .logo,#password,.auth-container,button {
   animation: ghost-drag 3s ease-in-out infinite;
@@ -44,6 +53,7 @@ body {
 .logo {
   width: 50px; /* 이미지 크기 조절 */
   margin-bottom: 2rem;
+  animation: counter-rotate 8s linear infinite;
 }
 
 .auth-container {
@@ -63,6 +73,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  animation: counter-rotate 8s linear infinite;
 }
 
 #password {
