@@ -28,7 +28,7 @@ body {
   height: 100px;
   /* position: absolute; */
   z-index: 1;
-  opacity: 0.99;
+  opacity: 0.5;
   animation: glowing-img 1.5s ease infinite;
 }
 

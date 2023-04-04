@@ -26,6 +26,10 @@
 
 <!-- index.html -->
 <script>
+    
+    window.addEventListener('beforeunload', function () {
+        navigator.sendBeacon('/invalidate_session', '');
+    });
     const source = new EventSource('/stream');
     let previousData = '';
 

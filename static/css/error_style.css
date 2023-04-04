@@ -1,0 +1,48 @@
+@keyframes breathe {
+    0%, 100% {
+      box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 30px 15px rgba(255, 0, 0, 0.5);
+    }
+}
+
+body {
+  font-family: Arial, sans-serif;
+  /* background-image: url('../images/error_bg.jpg'); */
+  background-size: 100% 100%;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.error-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  animation: breathe 3s infinite;
+}
+
+h1 {
+  color: #ff0000;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.retry-btn {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.retry-btn:hover {
+  background-color: #0056b3;
+}

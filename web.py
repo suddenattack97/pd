@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, Response
+from flask import request, redirect, url_for, session
 import sqlite3
 import json
 import time
@@ -8,8 +9,41 @@ app = Flask(__name__)
 
 DATABASE = 'danggn.db'
 
-@app.route('/')
+
+# 상단에 추가
+app.secret_key = 'happy'
+
+
+# 기존 index() 함수 대신 아래의 인증 관련 함수 추가
+@app.route('/', methods=['GET', 'POST'])
+def auth():
+    if request.method == 'POST':
+        password = request.form['password']
+        if password == app.secret_key:
+            session['authenticated'] = True
+            return redirect(url_for('index'))
+        else:
+            return render_template('invalid_password.html'), 401
+
+    if 'authenticated' in session:
+        return redirect(url_for('index'))
+    return render_template('auth.html')
+
+@app.route('/invalidate_session', methods=['POST'])
+def invalidate_session():
+    session.clear()
+    return '', 204
+
+@app.route('/logout')
+def logout():
+    session.pop('authenticated', None)
+    return redirect(url_for('auth'))
+
+# index() 함수에 로그인 상태 확인 추가
+@app.route('/main')
 def index():
+    if 'authenticated' not in session:
+        return redirect(url_for('auth'))
     return render_template('index.html')
 
 @app.route('/stream')
