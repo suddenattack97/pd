@@ -11,7 +11,7 @@ DATABASE = 'danggn.db'
 
 
 # 상단에 추가
-app.secret_key = 'happy'
+app.secret_key = 'minsu'
 
 
 # 기존 index() 함수 대신 아래의 인증 관련 함수 추가
