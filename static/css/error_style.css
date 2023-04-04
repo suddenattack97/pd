@@ -21,7 +21,7 @@ body {
 
 .error-container {
   background-color: #fff;
-  padding: 20px;
+  padding: 50px;
   border-radius: 5px;
   text-align: center;
   animation: breathe 3s infinite;
@@ -29,8 +29,8 @@ body {
 
 h1 {
   color: #ff0000;
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 19px;
+  margin-bottom: 7px;
 }
 
 .retry-btn {
