@@ -1,11 +1,28 @@
 from flask import Flask, render_template, jsonify, Response
 from flask import request, redirect, url_for, session
+from datetime import datetime
 import sqlite3
 import json
 import time
 import requests
+import logging
 
 app = Flask(__name__)
+
+# 상단에 추가
+app.logger.disabled = True
+log = logging.getLogger('werkzeug')
+log.disabled = True
+
+def log_client_ip(response):
+    client_ip = request.remote_addr
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"{current_time} - Client IP: {client_ip}")
+    return response
+
+# 요청 완료 후 실행되도록 함수 등록
+app.after_request(log_client_ip)
+
 
 DATABASE = 'danggn.db'
 
