@@ -51,6 +51,26 @@
             itemElement.classList.add('item-read');
         }
     }
+
+    // QR CODE 이벤트 추가
+    function toggleQRCode(itemId) {
+
+        const qrCode = document.querySelector(`#item-${itemId} .qr-code`);
+        const itemImage = document.querySelector(`#item-${itemId} .item-link img`);
+        const itemTooltip = document.querySelector(`#item-${itemId} .item-tooltip`);
+
+        if (qrCode.style.display === 'none') {
+            qrCode.style.display = 'block';
+            //itemImage.style.display = 'none';
+            itemTooltip.style.display = 'none';
+        } else {
+            qrCode.style.display = 'none';
+            //itemImage.style.display = 'block';
+            itemTooltip.style.display = 'block';
+        }
+        e.preventDefault(); // 기본 우클릭 메뉴 비활성화
+    }
+
     async function getUpdatedData(itemId) {
         const response = await fetch(`/updates/${itemId}`, { method: 'POST' });
         const resJson = await response.json();
@@ -95,10 +115,11 @@
                     const newItem = `
                         <div id="${itemId}" class="item ${readClass}" onclick="markAsRead(${item[0]})">
                             <div class="item-image">
-                                <a href="https://www.daangn.com/articles/${item[0]}"  target="_blank">
+                                <a href="https://www.daangn.com/articles/${item[0]}" class="item-link" target="_blank">
                                     <img src="${item[6]}" title="${item[4]}">
+                                    <img class="qr-code" src="/generate_qr_code/${item[0]}" alt="QR Code" style="display:none;" onclick="toggleQRCode(${item[0]}); return false;">
                                 </a>
-                                <div id="${itemId}-status" class="item-status_name"></div>
+                                <div id="${itemId}-status" class="item-status_name" onclick="toggleQRCode(${item[0]}); return false;"></div>
                                 <div id="${itemId}-chat" class="item-chat_rooms_count"></div>
                                 <div id="${itemId}-watches" class="item-watches_count"></div>
                                 <div class="item-tooltip">${item[4]}</div>

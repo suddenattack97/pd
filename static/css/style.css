@@ -7,6 +7,10 @@ body {
   background-size: 400% 400%;
   animation: gradient-background 15s ease infinite;
   position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .title {
   font-size: 40px !important;
@@ -173,6 +177,31 @@ color: gray;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0.5;
 }
+
+
+.item-link {
+  position: relative;
+  display: inline-block;
+}
+
+.item-image .qr-code{
+  opacity: 1 !important;
+}
+.qr-code {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+}
+
+.item-link:hover .qr-code {
+  display: block;
+}
+
+
 /* 기존의 스타일 코드에 추가 */
 @keyframes gradient-background {
   0% {

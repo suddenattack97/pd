@@ -1,11 +1,13 @@
 from flask import Flask, render_template, jsonify, Response
-from flask import request, redirect, url_for, session
+from flask import request, redirect, url_for, session, send_file
 from datetime import datetime
 import sqlite3
 import json
 import time
 import requests
 import logging
+import qrcode
+from io import BytesIO
 
 app = Flask(__name__)
 
@@ -95,6 +97,26 @@ def mark_as_read(item_id):
     conn.close()
 
     return '', 204
+
+
+@app.route('/generate_qr_code/<path:url>', methods=['GET'])
+def generate_qr_code(url):
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data("https://www.daangn.com/articles/"+url)
+    qr.make(fit=True)
+
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    img_io = BytesIO()
+    img.save(img_io, 'PNG')
+    img_io.seek(0)
+
+    return send_file(img_io, mimetype='image/png')
 
 
 
