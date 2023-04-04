@@ -7,9 +7,29 @@
     }
 }
 
+@keyframes shake {
+  0%, 100% {
+    transform: rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: rotate(-360deg) translateX(-5px);
+  }
+  50% {
+    transform: rotate(0deg) translateX(0);
+  }
+  75% {
+    transform: rotate(360deg) translateX(5px);
+  }
+}
+
+.logo {
+  width: 50px;
+  margin-bottom: 1rem;
+  animation: shake 1.5s linear infinite; /* 흔들리는 애니메이션 적용 */
+}
+
 body {
   font-family: Arial, sans-serif;
-  /* background-image: url('../images/error_bg.jpg'); */
   background-size: 100% 100%;
   background-position: center;
   display: flex;
