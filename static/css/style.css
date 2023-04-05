@@ -280,4 +280,9 @@ color: gray;
     left: 15px;
     top : 55px;
   }
+
+  .item-image:hover .item-tooltip {
+    visibility: hidden;
+    opacity: 1;
+  }
 }
