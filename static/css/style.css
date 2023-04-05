@@ -157,7 +157,7 @@ color: gray;
   background-color: rgba(144, 238, 144,0.5);
 }
 
-.item-chat_rooms_count, .item-watches_count {
+.item-chat_rooms_count, .item-watches_count , .item-bid {
   position: absolute;
   bottom: 5px;
   right: 5px;
@@ -172,7 +172,9 @@ color: gray;
 .item-watches_count {
   margin-right: 75px;
 }
-
+.item-bid {
+  margin-bottom: 25px;
+}
 .item-read {
   border: 2px solid #ccc;
   background-color: rgba(0, 0, 0, 0.5);
@@ -269,10 +271,11 @@ color: gray;
   }
   .item-chat_rooms_count{
     font-size: 9px;
-    /* width : 55px;
-    height : 15px;
-    left: 0px;
-    top : 180px; */
+  }
+  .item-bid{
+    font-size: 9px;
+    margin-right: 38px;
+    margin-bottom: 28px;
   }
   .item-watches_count{
     font-size: 9px;

@@ -91,6 +91,12 @@
         }else if(resJson.article.is_unpublished){
             $("#item-"+itemId+" .item-status_name").text("숨김");
         }else{
+            if (resJson.article.bid_user_ids.length > 0) {
+                $(`#item-${itemId} .item-bid`).text(`신청 : ${resJson.article.bids_count}`);
+                $(`#item-${itemId} .item-bid`).show();
+            } else {
+                $(`#item-${itemId} .item-bid`).hide();
+            }
             $("#item-"+itemId+" .item-status_name").text(resJson.article.status_name);
         }
 
@@ -123,6 +129,7 @@
                                 <div id="${itemId}-status" class="item-status_name" onclick="event.stopPropagation(); toggleQRCode(event,${item[0]}); return false;"></div>
                                 <div id="${itemId}-chat" class="item-chat_rooms_count"></div>
                                 <div id="${itemId}-watches" class="item-watches_count"></div>
+                                <div id="${itemId}-bid" class="item-bid" style="display:none;"></div>
                                 <a href="https://www.daangn.com/articles/${item[0]}" target="_blank">
                                     <div class="item-tooltip" onclick="">${item[4]}</div>
                                 </a>
