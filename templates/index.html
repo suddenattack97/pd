@@ -75,6 +75,10 @@
     async function getUpdatedData(itemId) {
         const response = await fetch(`/updates/${itemId}`, { method: 'POST' });
         const resJson = await response.json();
+
+        if(resJson.article.status_name == "예약중"){
+            getUserData(itemId,resJson.article.reserved_user_id);
+        }
         // console.log(resJson);
         const statusColors = {
             "나눔중": "rgba(144, 238, 144,0.5)",
@@ -107,6 +111,16 @@
         $("#item-"+itemId+" .item-watches_count").text("조회수 : "+ (resJson.status ? "X" : resJson.article.reads_count ));
     }
 
+    async function getUserData(item_id,user_id) {
+        const response = await fetch(`/user/${user_id}`, { method: 'POST' });
+        const resJson = await response.json();
+
+        $("#item-"+item_id+" .item-reserved-image").show();
+        $("#item-"+item_id+" .item-reserved-image").css('background-image' , (resJson.profile.profile_image_url ? "url(" + resJson.profile.profile_image_url +")" : ""));
+        $("#item-"+item_id+" .item-reserved-image").text(resJson.profile.nickname);
+        // console.log(resJson);
+    }
+
     source.onmessage = (event) => {
         if (previousData !== event.data) {
             previousData = event.data;
@@ -129,6 +143,7 @@
                                     <img class="qr-code" src="/generate_qr_code/${item[0]}" alt="QR Code" style="display:none;" onclick="toggleQRCode(${item[0]}); return false;">
                                 </a>
                                 <div id="${itemId}-user-image" class="item-user-image"></div>
+                                <div id="${itemId}-reserved-image" class="item-reserved-image" style="display:none"></div>
                                 <div id="${itemId}-status" class="item-status_name" onclick="event.stopPropagation(); toggleQRCode(event,${item[0]}); return false;"></div>
                                 <div id="${itemId}-chat" class="item-chat_rooms_count"></div>
                                 <div id="${itemId}-watches" class="item-watches_count"></div>
