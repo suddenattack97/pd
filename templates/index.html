@@ -101,6 +101,7 @@
         }
         $("#item-"+itemId+" .item-user-image").css('background-image' , (resJson.article.user.profile_large_image ? "url(" + resJson.article.user.profile_large_image +")" : resJson.article.user.profile_image ? "url(" + resJson.article.user.profile_image +")" : ""));
         $("#item-"+itemId+" .item-user-image").text(resJson.article.user.nickname ? resJson.article.user.nickname : "");
+        $("#item-"+itemId+" .item-user-image").attr('title' , resJson.article.user.nickname ? resJson.article.user.nickname : "");
         $("#item-"+itemId+" .item-status_name").css("background-color", statusColors[(resJson.status ? "삭제" : resJson.article.is_unpublished ? "숨김" : resJson.article.status_name)]);
         $("#item-"+itemId+" .item-chat_rooms_count").text("채팅수 : "+(resJson.status ? "X" : resJson.article.chat_rooms_count ));
         $("#item-"+itemId+" .item-watches_count").text("조회수 : "+ (resJson.status ? "X" : resJson.article.reads_count ));
