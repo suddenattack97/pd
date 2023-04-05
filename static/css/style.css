@@ -327,4 +327,11 @@ color: gray;
     width : 30px;
     height : 30px;
   }
+  .item-reserved-image {
+    top: -30px;
+    right: 190px;
+    font-size: 9px;
+    width : 30px;
+    height : 30px;
+  }
 }
