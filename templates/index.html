@@ -114,10 +114,11 @@
     async function getUserData(item_id,user_id) {
         const response = await fetch(`/user/${user_id}`, { method: 'POST' });
         const resJson = await response.json();
-
-        $("#item-"+item_id+" .item-reserved-image").show();
-        $("#item-"+item_id+" .item-reserved-image").css('background-image' , (resJson.profile.profile_image_url ? "url(" + resJson.profile.profile_image_url +")" : ""));
-        $("#item-"+item_id+" .item-reserved-image").text(resJson.profile.nickname);
+        if(!resJson.status){
+            $("#item-"+item_id+" .item-reserved-image").show();
+            $("#item-"+item_id+" .item-reserved-image").css('background-image' , (resJson.profile.profile_image_url ? "url(" + resJson.profile.profile_image_url +")" : ""));
+            $("#item-"+item_id+" .item-reserved-image").text(resJson.profile.nickname);
+        }
         // console.log(resJson);
     }
 
