@@ -146,6 +146,23 @@ font-size: 14px;
 color: gray;
 }
 
+.item-user-image {
+  position: absolute;
+  top: 5px;
+  right: 125px;
+  font-size: 14px;
+  color : #c55d5d;
+  font-weight: bold;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background-color: rgba(144, 238, 144,0.5);
+  background-size: cover;
+  width : 60px;
+  height : 60px;
+  /* -webkit-text-stroke-width: 0.7px;
+  -webkit-text-stroke-color: rgb(0, 0, 0); */
+}
+
 .item-status_name {
   position: absolute;
   top: 5px;
@@ -289,4 +306,12 @@ color: gray;
     visibility: hidden;
     opacity: 1;
   }
+}
+
+.item-user-image {
+  top: -15px;
+  right: 190px;
+  font-size: 9px;
+  width : 30px;
+  height : 30px;
 }

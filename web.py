@@ -156,7 +156,7 @@ def generate_qr_code(url):
 @app.route('/updates/<string:item_id>', methods=['POST'])
 def updates(item_id):
     # 여기에서 필요한 처리를 수행합니다.
-    response_url = "https://api.kr.karrotmarket.com/webapp/api/v24/articles/"+item_id+".json?feed_visible=1&include=is_watched_by_me"
+    response_url = "https://api.kr.karrotmarket.com/webapp/api/v24/articles/"+item_id+".json?feed_visible=1&include=user,is_watched_by_me"
     response_headers = {
         'x-user-agent' : 'TowneersApp/23.2.2/230202 iOS/16.2.0/1953.3 iPhone14,2',
         'accept' : '*/*',
