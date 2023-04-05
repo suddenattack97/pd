@@ -54,8 +54,8 @@
 
     // QR CODE 이벤트 추가
     async function toggleQRCode(event, itemId) {
-        const response = await fetch(`/url/${itemId}`, { method: 'POST' });
-        const resJson = await response.json();
+        //const response = await fetch(`/url/${itemId}`, { method: 'POST' });
+        //const resJson = await response.json();
 
         const qrCode = document.querySelector(`#item-${itemId} .qr-code`);
         const itemImage = document.querySelector(`#item-${itemId} .item-link img`);

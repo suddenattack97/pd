@@ -118,39 +118,39 @@ def generate_qr_code(url):
 
     return send_file(img_io, mimetype='image/png')
 
-@app.route('/url/<string:item_id>', methods=['POST'])
-def url(item_id):
-    # 여기에서 필요한 처리를 수행합니다.
-    data = {
-        "content": {
-            "action": {
-                "type": "LINK",
-                "value": "https://www.daangn.com/articles/"+item_id
-            },
-            "description": "네이버앱에서 웹페이지를 확인하실 수 있습니다.",
-            "title": "PC 웨일에서 웹페이지가 전송되었습니다."
-        },
-        "pushDevice": {
-            "appId": "APG00012",
-            "deviceType": "apns",
-            "duId": "dc5b1455a1af44f20e545236b4d3cb09"
-        }
-    }
-    response_url = "http://apis.naver.com/whale/tube_api/push?msgpad=1680593278015&md=k4kNp8QufgrL%2FOnMC5yRkT6kftk%3D"
-    response_headers = {
-        'x-user-agent' : 'TowneersApp/23.2.2/230202 iOS/16.2.0/1953.3 iPhone14,2',
-        'accept' : '*/*',
-        'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Whale/3.19.166.16 Safari/537.36',
-        'Accept-Encoding' : 'gzip, deflate',
-        'accept-language' : 'ko-KR',
-        'Content-Type' : 'application/json',
-        'Cookie' : 'NID_AUT=kCCZsVklch86Rbo3dKubNw7+YRaom9lBK6FYYdXltQcmzD1TO9J6mUBD6eHrnEGU;NID_JKL=fW2EpfuB+ei2aWvU4sQyhcdD3R1+WqQGRxBNgECLlk4=;NID_SES=AAABw7EDlSVps+1gSfC/xlq8pbny1Sno99+ZcixNzXC7dor4t7dyTjj2KiQUfAqV3BlxOlhezciESH1wgefwJC4pEGK6KC2EJlfxmV0wyWHGuA2wegC0mylVW8XdY0AUKUYt+f0IoT84pS6q2Ion0yRL2LLLG4S1DHFpa5DICmDLt/JcEdFqkWWg8ie2NcHMwmz+mW96lnxWLz2PvgYSOwOHJNGpw3RRs7KQn5RDWXl16tE+g50PocZUrDabYqugzxlYhA030eDMPQ3paVNxMF5mXaWJlHG+GDzdgTywQ7AT5MYhZirVFHTaqUCGMPJhciGhgr3SjsrdszKAGHtcn1AXRqk3oeUd3SHwFzzT0afAIdnooeZ25ELXMBvKFg0f0g2xia7MyejTCZ/NdIYH1EefRi+3fqDgWiL01y2cBt79ghdzMA0pMOqnBR0HqKQnD6xABEoXNLl8Y3HpRCCx9erkyBZLXEqz93CMGkflRDIcXeVcrA5nVxhVPBPCIZJkCXobT1Yvro69kEWQkdomFJPU0J082DbFk21NYVUEOJYjriRbGrKwek83hZ4qv9jrOtYpOFbfcjw0Q66vnoI3pxT2SsRbJXBjQqjqsLmyIWBc4NaO;'
-        }
-    response = requests.post(url=response_url, headers=response_headers, json=data)
+# @app.route('/url/<string:item_id>', methods=['POST'])
+# def url(item_id):
+#     # 여기에서 필요한 처리를 수행합니다.
+#     data = {
+#         "content": {
+#             "action": {
+#                 "type": "LINK",
+#                 "value": "https://www.daangn.com/articles/"+item_id
+#             },
+#             "description": "네이버앱에서 웹페이지를 확인하실 수 있습니다.",
+#             "title": "PC 웨일에서 웹페이지가 전송되었습니다."
+#         },
+#         "pushDevice": {
+#             "appId": "APG00012",
+#             "deviceType": "apns",
+#             "duId": "dc5b1455a1af44f20e545236b4d3cb09"
+#         }
+#     }
+#     response_url = "http://apis.naver.com/whale/tube_api/push?msgpad=1680593278015&md=k4kNp8QufgrL%2FOnMC5yRkT6kftk%3D"
+#     response_headers = {
+#         'x-user-agent' : 'TowneersApp/23.2.2/230202 iOS/16.2.0/1953.3 iPhone14,2',
+#         'accept' : '*/*',
+#         'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Whale/3.19.166.16 Safari/537.36',
+#         'Accept-Encoding' : 'gzip, deflate',
+#         'accept-language' : 'ko-KR',
+#         'Content-Type' : 'application/json',
+#         'Cookie' : 'NID_AUT=kCCZsVklch86Rbo3dKubNw7+YRaom9lBK6FYYdXltQcmzD1TO9J6mUBD6eHrnEGU;NID_JKL=fW2EpfuB+ei2aWvU4sQyhcdD3R1+WqQGRxBNgECLlk4=;NID_SES=AAABw7EDlSVps+1gSfC/xlq8pbny1Sno99+ZcixNzXC7dor4t7dyTjj2KiQUfAqV3BlxOlhezciESH1wgefwJC4pEGK6KC2EJlfxmV0wyWHGuA2wegC0mylVW8XdY0AUKUYt+f0IoT84pS6q2Ion0yRL2LLLG4S1DHFpa5DICmDLt/JcEdFqkWWg8ie2NcHMwmz+mW96lnxWLz2PvgYSOwOHJNGpw3RRs7KQn5RDWXl16tE+g50PocZUrDabYqugzxlYhA030eDMPQ3paVNxMF5mXaWJlHG+GDzdgTywQ7AT5MYhZirVFHTaqUCGMPJhciGhgr3SjsrdszKAGHtcn1AXRqk3oeUd3SHwFzzT0afAIdnooeZ25ELXMBvKFg0f0g2xia7MyejTCZ/NdIYH1EefRi+3fqDgWiL01y2cBt79ghdzMA0pMOqnBR0HqKQnD6xABEoXNLl8Y3HpRCCx9erkyBZLXEqz93CMGkflRDIcXeVcrA5nVxhVPBPCIZJkCXobT1Yvro69kEWQkdomFJPU0J082DbFk21NYVUEOJYjriRbGrKwek83hZ4qv9jrOtYpOFbfcjw0Q66vnoI3pxT2SsRbJXBjQqjqsLmyIWBc4NaO;'
+#         }
+#     response = requests.post(url=response_url, headers=response_headers, json=data)
     
-    res_json = json.loads(response.text)
-    # 원하는 결과를 JSON 형식으로 반환합니다.
-    return jsonify(res_json)
+#     res_json = json.loads(response.text)
+#     # 원하는 결과를 JSON 형식으로 반환합니다.
+#     return jsonify(res_json)
 
 
 @app.route('/updates/<string:item_id>', methods=['POST'])
