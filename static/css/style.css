@@ -306,12 +306,11 @@ color: gray;
     visibility: hidden;
     opacity: 1;
   }
-}
-
-.item-user-image {
-  top: -15px;
-  right: 190px;
-  font-size: 9px;
-  width : 30px;
-  height : 30px;
+  .item-user-image {
+    top: -15px;
+    right: 190px;
+    font-size: 9px;
+    width : 30px;
+    height : 30px;
+  }
 }
