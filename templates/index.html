@@ -42,7 +42,7 @@
         const minute = String(date.getMinutes()).padStart(2, '0');
         const second = String(date.getSeconds()).padStart(2, '0');
 
-        return `${year}년${month}월${day}일\n${hour}시${minute}분${second}초`;
+        return `${year}년${month}월${day}일\n <br> ${hour}시${minute}분${second}초`;
     }
     async function markAsRead(item_id) {
         const response = await fetch(`/mark_as_read/${item_id}`, { method: 'POST' });
