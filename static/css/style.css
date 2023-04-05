@@ -322,14 +322,14 @@ color: gray;
   }
   .item-user-image {
     top: -15px;
-    right: 190px;
+    right: 50px;
     font-size: 9px;
     width : 30px;
     height : 30px;
   }
   .item-reserved-image {
     top: -30px;
-    right: 190px;
+    right: 5px;
     font-size: 9px;
     width : 30px;
     height : 30px;
