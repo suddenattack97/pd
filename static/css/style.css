@@ -85,9 +85,19 @@ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
 }
 
+.item-region {
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #505050;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
 .item-image {
   position: relative;
-  height: 200px;
+  height: 194px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -281,6 +291,16 @@ color: gray;
       margin-bottom: 25px;
       width: 90px;
   }
+
+  .item-region {
+    width: 100%;
+    font-size: 9px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
   .item-image{
     height:55px;
     width: 90px;

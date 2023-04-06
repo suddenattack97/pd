@@ -138,6 +138,7 @@
                 if (!document.getElementById(itemId)) {
                     const newItem = `
                         <div id="${itemId}" class="item ${readClass}" onclick="markAsRead(${item[0]})">
+                            <div class="item-region">${item[2]}</div>
                             <div class="item-image">
                                 <a href="https://www.daangn.com/articles/${item[0]}" class="item-link" target="_blank">
                                     <img src="${item[6]}" title="${item[4]}">
