@@ -103,6 +103,7 @@
             }
             $("#item-"+itemId+" .item-status_name").text(resJson.article.status_name);
         }
+        $("#item-"+itemId+" .item-category").text(resJson.article.category_name);
         $("#item-"+itemId+" .item-user-image").css('background-image' , (resJson.article.user.profile_large_image ? "url(" + resJson.article.user.profile_large_image +")" : resJson.article.user.profile_image ? "url(" + resJson.article.user.profile_image +")" : ""));
         $("#item-"+itemId+" .item-user-image").text(resJson.article.user.nickname ? resJson.article.user.nickname : "");
         $("#item-"+itemId+" .item-user-image").attr('title' , resJson.article.user.nickname ? resJson.article.user.nickname : "");
@@ -139,6 +140,7 @@
                     const newItem = `
                         <div id="${itemId}" class="item ${readClass}" onclick="markAsRead(${item[0]})">
                             <div class="item-region">${item[2]}</div>
+                            <div id="${itemId}-category" class="item-category"></div>
                             <div class="item-image">
                                 <a href="https://www.daangn.com/articles/${item[0]}" class="item-link" target="_blank">
                                     <img src="${item[6]}" title="${item[4]}">
