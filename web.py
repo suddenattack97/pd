@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, Response
-from flask import request, redirect, url_for, session, send_file
+from flask import request, redirect, url_for, session, send_file ,abort
 from datetime import datetime
 import sqlite3
 import json
@@ -27,7 +27,7 @@ app.after_request(log_client_ip)
 
 
 DATABASE = 'danggn.db'
-
+USER_DATABASE ='user.db'
 
 # 상단에 추가
 app.secret_key = 'minsu'
@@ -144,6 +144,9 @@ def user(user_id):
 
 @app.route('/updates/<string:item_id>', methods=['POST'])
 def updates(item_id):
+    client_ip = get_client_ip()
+    if not is_client_ip_valid(client_ip):
+        return redirect(url_for('invalid_access'))
     # 여기에서 필요한 처리를 수행합니다.
     response_url = "https://api.kr.karrotmarket.com/webapp/api/v24/articles/"+item_id+".json?feed_visible=1&include=user,is_watched_by_me"
     response_headers = {
@@ -164,6 +167,40 @@ def updates(item_id):
 
     # 원하는 결과를 JSON 형식으로 반환합니다.
     return jsonify(res_json)
+
+
+def get_client_ip():
+    if request.headers.getlist("X-Forwarded-For"):
+        client_ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        client_ip = request.remote_addr
+    return client_ip
+
+def is_client_ip_valid(client_ip):
+    conn = sqlite3.connect(USER_DATABASE)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM users WHERE client_ip=?", (client_ip,))
+    if cur.fetchone():
+        return True
+    else:
+        return False
+
+@app.before_request
+def check_client_ip():
+    if request.endpoint not in ['index', 'updates']:
+        return
+    client_ip = get_client_ip()
+    if not is_client_ip_valid(client_ip):
+        abort(403)  # HTTP Forbidden status code
+        
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template('invalid_access.html'), 403
+
+@app.route('/invalid_access')
+def invalid_access():
+    return render_template('invalid_access.html')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=6700)
